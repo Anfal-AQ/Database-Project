@@ -1,0 +1,356 @@
+﻿CREATE TABLE DEPARTMENT (
+Dep_Name   Varchar(50) UNIQUE  NOT NULL,
+DepNo      int NOT NULL PRIMARY KEY,
+Building_No int NOT NULL
+);
+
+CREATE TABLE STUDENT ( 
+StID        int NOT NULL PRIMARY KEY, 
+first_name  VARCHAR(20) NOT NULL,
+last_name   VARCHAR(20) NOT NULL,
+Email       VARCHAR(50) UNIQUE NOT NULL,
+Phone       Varchar(10) NOT NULL,
+DepNo int FOREIGN KEY REFERENCES DEPARTMENT(DepNo),
+);
+
+CREATE TABLE CLUB(
+CName    Varchar(50) NOT NULL PRIMARY KEY,
+Num_of_std   int NOT NULL,
+Email        VARCHAR(50) UNIQUE ,
+Twitter      VARCHAR(30)  ,
+Max_Seat_Num  int NOT NULL,
+);
+
+CREATE TABLE EVENT_ (
+Ename   VARCHAR(50) NOT NULL ,
+Club_Name    Varchar(50) FOREIGN KEY REFERENCES CLUB(CName),
+STDate       Varchar(20) NOT NULL,
+FNDate       Varchar(20) NOT NULL,
+Event_Type   VARCHAR(20) NOT NULL,
+CONSTRAINT cons1 PRIMARY KEY(Ename,Club_Name),
+);
+
+
+CREATE TABLE ATTEND ( 
+StID int FOREIGN KEY REFERENCES STUDENT(StID),
+Event_name VARCHAR(50) NOT NULL ,
+Club_Name  Varchar(50) FOREIGN KEY REFERENCES CLUB(CName),
+);
+
+
+CREATE TABLE INSTRUCTOR (
+Inst_ID    int NOT NULL PRIMARY KEY,
+Inst_Name  VARCHAR(20) NOT NULL,
+Office_num int NOT NULL ,
+Email      VARCHAR(50) NOT NULL,
+DepNo int FOREIGN KEY REFERENCES DEPARTMENT(DepNo),
+);
+
+CREATE TABLE STD_REGULAR (
+StID int FOREIGN KEY REFERENCES STUDENT(StID),
+);
+
+CREATE TABLE STD_LEADER (
+StID int FOREIGN KEY REFERENCES STUDENT(StID),
+Club_Name Varchar(50) FOREIGN KEY REFERENCES CLUB(CName),
+);
+ 
+CREATE TABLE MEMBER (
+StID int FOREIGN KEY REFERENCES STUDENT(StID),
+Club_Name Varchar(50) FOREIGN KEY REFERENCES CLUB(CName),
+CONSTRAINT cons2 PRIMARY KEY(StID,Club_Name),
+);
+
+
+CREATE TABLE CLUB_GENERAL (
+Club_Name Varchar(50) FOREIGN KEY REFERENCES CLUB(CName),
+);
+
+CREATE TABLE CLUB_MAJOR (
+Club_Name Varchar(50) FOREIGN KEY REFERENCES CLUB(CName),
+DepNo int FOREIGN KEY REFERENCES DEPARTMENT(DepNo),
+);
+
+CREATE TABLE MANAGE (
+Club_Name Varchar(50) FOREIGN KEY REFERENCES CLUB(CName),
+Inst_ID   int FOREIGN KEY REFERENCES INSTRUCTOR(Inst_ID),
+);
+INSERT INTO DEPARTMENT VALUES('Medicine',1,231)
+INSERT INTO DEPARTMENT VALUES('Computer Science',2,204)
+INSERT INTO DEPARTMENT VALUES('Nursing',3,225)
+INSERT INTO DEPARTMENT VALUES('Languages And Translation',4,221)
+INSERT INTO DEPARTMENT VALUES('Business Management',5,227)
+INSERT INTO DEPARTMENT VALUES('Physic',6,209)
+INSERT INTO DEPARTMENT VALUES('Law',7,212)
+
+/*طلاب نادي ون كليك */
+INSERT INTO STUDENT VALUES(41000,'Maryam','Alsadi','Maryhatim99@gmail.com', '0562928205',2)
+INSERT INTO STUDENT VALUES(41001,'Renad','Alhazmi','stu41001@hotmail.com','0599999',2)
+INSERT INTO STUDENT VALUES(41002,'Anfal','Alraddadi','stu41002@hotmail.com','058888',2)
+INSERT INTO STUDENT VALUES(41003,'fay','Alraddadi','stu41003@hotmail.com','057777',2)
+INSERT INTO STUDENT VALUES(41004,'Raneem','Alrehaili ','stu41004@hotmail.com','05666666',2)
+INSERT INTO STUDENT VALUES(41005,'Ghada','Alamri','stu41005@hotmail.com','05555555',2)
+
+/*طلاب نادي قوقل المطورين */
+INSERT INTO STUDENT VALUES(41006,'Renad','Alhazmi','stu41500@hotmail.com','0544444',2)
+INSERT INTO STUDENT VALUES(41007,'Anfal','Alraddadi','stu41007@hotmail.com','05333333',2)
+INSERT INTO STUDENT VALUES(41008,'fay','Alraddadi','stu41008@hotmail.com','05222222',2)
+INSERT INTO STUDENT VALUES(41009,'Raneem','Alrehaili ','stu41009@hotmail.com','0511111',2)
+INSERT INTO STUDENT VALUES(41010,'Ghada','Alamri','stu41010@hotmail.com','05000000',2)
+
+/*طلاب نادي اللغه الانجليزية */
+INSERT INTO STUDENT VALUES(4150508,'Anfal','Alraddadi','tu4150508@taibu.edu.sa','0537707022',4)
+INSERT INTO STUDENT VALUES(41012,'Renad','Alhazmi','stu41012@hotmail.com','05555999',4)
+INSERT INTO STUDENT VALUES(41013,'fay','Alraddadi','stu41013@hotmail.com','0577799',4)
+INSERT INTO STUDENT VALUES(41014,'Raneem','Alrehaili ','stu41014@hotmail.com','0588899',4)
+INSERT INTO STUDENT VALUES(41015,'Ghada','Alamri','stu41015@hotmail.com','0511199',4)
+
+/*طلاب نادي كلية التمريض  */
+INSERT INTO STUDENT VALUES(41016,'Renad','Alhazmi','stu41016@hotmail.com','0522299',3)
+INSERT INTO STUDENT VALUES(41017,'Anfal','Alraddadi','stu41017@hotmail.com','0533399',3)
+INSERT INTO STUDENT VALUES(41018,'fay','Alraddadi','stu41018@hotmail.com','05444999',3)
+INSERT INTO STUDENT VALUES(41019,'Raneem','Alrehaili ','stu41019@hotmail.com','0555588888',3)
+INSERT INTO STUDENT VALUES(41020,'Ghada','Alamri','stu41020@hotmail.com','054444888',3)
+
+/*طلاب نادي كلية الطب */
+INSERT INTO STUDENT VALUES(41021,'Renad','Alhazmi','stu41021@hotmail.com','053338888',1)
+INSERT INTO STUDENT VALUES(41022,'Anfal','Alraddadi','stu41022@hotmail.com','052228888',1)
+INSERT INTO STUDENT VALUES(41023,'fay','Alraddadi','stu41023@hotmail.com','05111888',1)
+INSERT INTO STUDENT VALUES(41024,'Raneem','Alrehaili ','stu41024@hotmail.com','0566888',1)
+INSERT INTO STUDENT VALUES(41025,'Ghada','Alamri','stu41025@hotmail.com','057778888',1)
+
+/*طلاب نادي ارتكاز */
+INSERT INTO STUDENT VALUES(41026,'Renad','Alhazmi','stu41026@hotmail.com','05999888',6)
+INSERT INTO STUDENT VALUES(41027,'Anfal','Alraddadi','stu41027@hotmail.com','05111777',5)
+INSERT INTO STUDENT VALUES(41028,'fay','Alraddadi','stu41028@hotmail.com','05222777',4)
+INSERT INTO STUDENT VALUES(41029,'Raneem','Alrehaili ','stu41029@hotmail.com','05333777',3)
+INSERT INTO STUDENT VALUES(41030,'Ghada','Alamri','stu41030@hotmail.com','055444777',1)
+
+/*طلاب نادي نوء الفلك */
+INSERT INTO STUDENT VALUES(41060,'Nedaa ','Alzarroug','Nedaa.alzarroug@gmail.com','0551091464',3)
+INSERT INTO STUDENT VALUES(41031,'Renad','Alhazmi','stu41031@hotmail.com','05555777',3)
+INSERT INTO STUDENT VALUES(41032,'Anfal','Alraddadi','stu41032@hotmail.com','055666777',2)
+INSERT INTO STUDENT VALUES(41033,'fay','Alraddadi','stu41033@hotmail.com','055888777',7)
+INSERT INTO STUDENT VALUES(41034,'Raneem','Alrehaili ','stu41034@hotmail.com','05999777',4)
+INSERT INTO STUDENT VALUES(41035,'Ghada','Alamri','stu41035@hotmail.com','05111666',6)
+
+/*طلاب نادي انماء */
+INSERT INTO STUDENT VALUES(41036,'Renad','Alhazmi','stu41036@hotmail.com','05222666',1)
+INSERT INTO STUDENT VALUES(41037,'Anfal','Alraddadi','stu41037@hotmail.com','05333666',2)
+INSERT INTO STUDENT VALUES(41038,'fay','Alraddadi','tu4155292@taibu.edu.sa','054475050',3)
+INSERT INTO STUDENT VALUES(41039,'Raneem','Alrehaili ','stu41039@hotmail.com','05555666',7)
+INSERT INTO STUDENT VALUES(41040,'Ghada','Alamri','stu41040@hotmail.com','058886666',5)
+
+
+INSERT INTO CLUB VALUES('Oneclick','100 ','Cit2tu@gmail.com','@cit2tu',150)
+INSERT INTO CLUB VALUES('Google for Developers','143 ','DSC.Taibah@gmail.com','@GDSCTU',150)
+INSERT INTO CLUB VALUES('nao space','80 ','tuspaceclub@gmail.com','@Nao_spaceclub',150)
+INSERT INTO CLUB VALUES('Languages ​​and translation','100 ','englishTranslation@gmail.com','@englishTranslation',150)
+INSERT INTO CLUB VALUES('Fulcrum ','80 ','FulcrumClub0@gmail.com','@ErtkazTU',150)
+INSERT INTO CLUB VALUES('Enmaa','130 ','Enmaa.club10@gmailcom','@enmaa10 ',150)
+INSERT INTO CLUB VALUES('Nursing','30 ','nu12tu@gmail.com','@nu12tu',150)
+INSERT INTO CLUB VALUES('Medicine','45 ',Null,'@TU_MCC',150)
+
+
+
+INSERT INTO EVENT_ VALUES('what is emergency medicine?','Medicine','2023/05/05','2023/05/07','present')
+INSERT INTO EVENT_ VALUES('From atom to dark matter','nao space','2023/05/24','2023/05/24','present')
+INSERT INTO EVENT_ VALUES('Your child is safe','Oneclick','2023/01/05','2023/01/6','present')
+INSERT INTO EVENT_ VALUES('data analysis','Google for Developers','2023/05/24','2023/05/26','online ')
+INSERT INTO EVENT_ VALUES('International Nurses Day','Nursing','2023/05/20','2023/05/20','present')
+INSERT INTO EVENT_ VALUES('volunteer leader','Enmaa','2023/05/20','2023/05/22','online ')
+INSERT INTO EVENT_ VALUES('basketball league','Fulcrum','2023/05/13','2023/05/15','online ')
+
+
+
+INSERT INTO ATTEND VALUES(41060,'From atom to dark matter','nao space')
+INSERT INTO ATTEND VALUES(41032,'From atom to dark matter','nao space')
+INSERT INTO ATTEND VALUES(41033,'From atom to dark matter','nao space')
+INSERT INTO ATTEND VALUES(41034,'From atom to dark matter','nao space')
+
+
+INSERT INTO ATTEND VALUES(41000,'Your child is safe','Oneclick')
+INSERT INTO ATTEND VALUES(41001,'Your child is safe','Oneclick')
+INSERT INTO ATTEND VALUES(41002,'Your child is safe','Oneclick')
+INSERT INTO ATTEND VALUES(41005,'Your child is safe','Oneclick')
+
+
+INSERT INTO ATTEND VALUES(41021,'what is emergency medicine?','Medicine')
+INSERT INTO ATTEND VALUES(41022,'what is emergency medicine?','Medicine')
+INSERT INTO ATTEND VALUES(41025,'what is emergency medicine?','Medicine')
+INSERT INTO ATTEND VALUES(41023,'what is emergency medicine?','Medicine')
+
+
+INSERT INTO ATTEND VALUES(41006,'data analysis','Google for Developers')
+INSERT INTO ATTEND VALUES(41007,'data analysis','Google for Developers')
+INSERT INTO ATTEND VALUES(41009,'data analysis','Google for Developers')
+INSERT INTO ATTEND VALUES(41010,'data analysis','Google for Developers')
+
+
+INSERT INTO ATTEND VALUES(41020,'International Nurses Day','Nursing')
+INSERT INTO ATTEND VALUES(41019,'International Nurses Day','Nursing')
+INSERT INTO ATTEND VALUES(41018,'International Nurses Day','Nursing')
+
+
+INSERT INTO ATTEND VALUES(41036,'How to become a volunteer','Enmaa')
+INSERT INTO ATTEND VALUES(41038,'How to become a volunteer','Enmaa')
+INSERT INTO ATTEND VALUES(41040,'How to become a volunteer','Enmaa')
+
+
+
+INSERT INTO ATTEND VALUES(41026,'basketball league','Fulcrum')
+INSERT INTO ATTEND VALUES(41028,'basketball league','Fulcrum')
+INSERT INTO ATTEND VALUES(41029,'basketball league','Fulcrum')
+INSERT INTO ATTEND VALUES(41030,'basketball league','Fulcrum')
+
+
+
+
+
+INSERT INTO INSTRUCTOR VALUES(001,' Hind Alawfi',301,'haawfi@taibahu.edu.sa',2)
+INSERT INTO MANAGE VALUES('Oneclick',001)
+
+INSERT INTO INSTRUCTOR VALUES(002,' Hadeel aljohani',401,'Had2@taibahu.edu.sa',4)
+INSERT INTO MANAGE VALUES('Languages ​​and translation',002)
+
+INSERT INTO INSTRUCTOR VALUES(003,'Mayasem Alsuhaimi',501,'Maya_@taibahu.edu.sa',6)
+INSERT INTO MANAGE VALUES('nao space',003)
+
+INSERT INTO INSTRUCTOR VALUES(004,'Huda aljohani',201,'Huda@taibahu.edu.sa',5)
+INSERT INTO MANAGE VALUES('Enmaa',004)
+
+INSERT INTO INSTRUCTOR VALUES(005,' Sarah Alamri',801,'Sarah@taibahu.edu.sa',1)
+INSERT INTO MANAGE VALUES('Medicine',005)
+
+INSERT INTO INSTRUCTOR VALUES(006,'Lama Alsuhaimi',901,'Lama@taibahu.edu.sa',3)
+INSERT INTO MANAGE VALUES('Nursing',005)
+
+
+/*طلاب نادي ون كليك */
+INSERT INTO STD_LEADER VALUES(41000,'Oneclick')
+
+INSERT INTO STD_REGULAR VALUES(41001)
+INSERT INTO STD_REGULAR VALUES(41002)
+INSERT INTO STD_REGULAR VALUES(41003)
+INSERT INTO STD_REGULAR VALUES(41004)
+INSERT INTO STD_REGULAR VALUES(41005)
+
+INSERT INTO MEMBER VALUES(41001,'Oneclick')
+INSERT INTO MEMBER VALUES(41002,'Oneclick')
+INSERT INTO MEMBER VALUES(41003,'Oneclick')
+INSERT INTO MEMBER VALUES(41004,'Oneclick')
+INSERT INTO MEMBER VALUES(41005,'Oneclick')
+
+INSERT INTO CLUB_MAJOR VALUES('Oneclick',2)
+
+/*طلاب نادي قوقل المطورين */
+INSERT INTO STD_LEADER VALUES(41006,'Google for Developers')
+
+INSERT INTO STD_REGULAR VALUES(41007)
+INSERT INTO STD_REGULAR VALUES(41008)
+INSERT INTO STD_REGULAR VALUES(41009)
+INSERT INTO STD_REGULAR VALUES(41010)
+
+INSERT INTO MEMBER VALUES(41007,'Google for Developers')
+INSERT INTO MEMBER VALUES(41008,'Google for Developers')
+INSERT INTO MEMBER VALUES(41009,'Google for Developers')
+INSERT INTO MEMBER VALUES(41010,'Google for Developers')
+
+INSERT INTO CLUB_MAJOR VALUES('Google for Developers',2)
+
+/*طلاب نادي اللغه الانجليزية */
+INSERT INTO STD_LEADER VALUES(4150508,'Languages ​​and translation')
+
+INSERT INTO STD_REGULAR VALUES(41012)
+INSERT INTO STD_REGULAR VALUES(41013)
+INSERT INTO STD_REGULAR VALUES(41014)
+INSERT INTO STD_REGULAR VALUES(41015)
+
+INSERT INTO MEMBER VALUES(41012,'Languages ​​and translation')
+INSERT INTO MEMBER VALUES(41013,'Languages ​​and translation')
+INSERT INTO MEMBER VALUES(41014,'Languages ​​and translation')
+INSERT INTO MEMBER VALUES(41015,'Languages ​​and translation')
+
+INSERT INTO CLUB_MAJOR VALUES('Languages ​​and translation',4)
+
+/*طلاب نادي كلية التمريض  */
+INSERT INTO STD_LEADER VALUES(41020,'Nursing')
+
+INSERT INTO STD_REGULAR VALUES(41016)
+INSERT INTO STD_REGULAR VALUES(41017)
+INSERT INTO STD_REGULAR VALUES(41018)
+INSERT INTO STD_REGULAR VALUES(41019)
+
+INSERT INTO MEMBER VALUES(41016,'Nursing')
+INSERT INTO MEMBER VALUES(41017,'Nursing')
+INSERT INTO MEMBER VALUES(41018,'Nursing')
+INSERT INTO MEMBER VALUES(41019,'Nursing')
+
+INSERT INTO CLUB_MAJOR VALUES('Nursing',3)
+
+/*طلاب نادي كلية الطب */
+INSERT INTO STD_LEADER VALUES(41022,'Medicine')
+
+INSERT INTO STD_REGULAR VALUES(41021)
+INSERT INTO STD_REGULAR VALUES(41025)
+INSERT INTO STD_REGULAR VALUES(41023)
+INSERT INTO STD_REGULAR VALUES(41024)
+
+INSERT INTO MEMBER VALUES(41021,'Medicine')
+INSERT INTO MEMBER VALUES(41025,'Medicine')
+INSERT INTO MEMBER VALUES(41023,'Medicine')
+INSERT INTO MEMBER VALUES(41024,'Medicine')
+
+INSERT INTO CLUB_MAJOR VALUES('Medicine',1)
+
+/*طلاب نادي ارتكاز */
+INSERT INTO STD_LEADER VALUES(41028,'Fulcrum')
+
+INSERT INTO STD_REGULAR VALUES(41027)
+INSERT INTO STD_REGULAR VALUES(41026)
+INSERT INTO STD_REGULAR VALUES(41029)
+INSERT INTO STD_REGULAR VALUES(41030)
+
+INSERT INTO MEMBER VALUES(41027,'Fulcrum')
+INSERT INTO MEMBER VALUES(41026,'Fulcrum')
+INSERT INTO MEMBER VALUES(41029,'Fulcrum')
+INSERT INTO MEMBER VALUES(41030,'Fulcrum')
+
+INSERT INTO CLUB_GENERAL VALUES('Fulcrum')
+
+/*طلاب نادي نوء الفلك */
+INSERT INTO STD_LEADER VALUES(41060,'nao space')
+
+INSERT INTO STD_REGULAR VALUES(41031)
+INSERT INTO STD_REGULAR VALUES(41032)
+INSERT INTO STD_REGULAR VALUES(41033)
+INSERT INTO STD_REGULAR VALUES(41034)
+INSERT INTO STD_REGULAR VALUES(41035)
+
+INSERT INTO MEMBER VALUES(41031,'nao space')
+INSERT INTO MEMBER VALUES(41032,'nao space')
+INSERT INTO MEMBER VALUES(41033,'nao space')
+INSERT INTO MEMBER VALUES(41034,'nao space')
+INSERT INTO MEMBER VALUES(41035,'nao space')
+
+INSERT INTO CLUB_GENERAL VALUES('nao space')
+
+/*طلاب نادي انماء */
+INSERT INTO STD_LEADER VALUES(41038,'Enmaa')
+
+INSERT INTO STD_REGULAR VALUES(41037)
+INSERT INTO STD_REGULAR VALUES(41039)
+INSERT INTO STD_REGULAR VALUES(41040)
+INSERT INTO STD_REGULAR VALUES(41036)
+
+INSERT INTO MEMBER VALUES(41037,'Enmaa')
+INSERT INTO MEMBER VALUES(41039,'Enmaa')
+INSERT INTO MEMBER VALUES(41040,'Enmaa')
+INSERT INTO MEMBER VALUES(41036,'Enmaa')
+
+INSERT INTO CLUB_GENERAL VALUES('Enmaa')
+
+select S.StID,first_name,last_name,Event_name
+from STUDENT S left outer join ATTEND A
+on s.StID=A.StID
+order by StID desc;
